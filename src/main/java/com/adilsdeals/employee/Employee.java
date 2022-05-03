@@ -1,4 +1,4 @@
-package com.adilsdeals.model;
+package com.adilsdeals.employee;
 
 import lombok.*;
 

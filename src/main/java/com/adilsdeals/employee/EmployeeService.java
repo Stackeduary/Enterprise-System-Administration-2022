@@ -1,8 +1,8 @@
-package com.adilsdeals.service;
+package com.adilsdeals.employee;
 
-import com.adilsdeals.model.Employee;
-import com.adilsdeals.model.dto.EmployeeDto;
-import com.adilsdeals.repository.EmployeeRepository;
+import com.adilsdeals.employee.Employee;
+import com.adilsdeals.employee.dto.EmployeeDto;
+import com.adilsdeals.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;

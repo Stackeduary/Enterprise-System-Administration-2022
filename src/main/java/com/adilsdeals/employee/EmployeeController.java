@@ -1,14 +1,11 @@
-package com.adilsdeals.controller;
+package com.adilsdeals.employee;
 
-import com.adilsdeals.model.dto.EmployeeCreateDto;
-import com.adilsdeals.model.dto.EmployeeDto;
-import com.adilsdeals.service.EmployeeService;
+import com.adilsdeals.employee.dto.EmployeeCreateDto;
+import com.adilsdeals.employee.dto.EmployeeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/employee")

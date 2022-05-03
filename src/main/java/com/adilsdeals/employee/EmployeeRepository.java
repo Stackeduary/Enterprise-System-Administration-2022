@@ -1,6 +1,6 @@
-package com.adilsdeals.repository;
+package com.adilsdeals.employee;
 
-import com.adilsdeals.model.Employee;
+import com.adilsdeals.employee.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

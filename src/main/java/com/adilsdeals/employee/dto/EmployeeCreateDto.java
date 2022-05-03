@@ -1,4 +1,4 @@
-package com.adilsdeals.model.dto;
+package com.adilsdeals.employee.dto;
 
 import lombok.Data;
 
