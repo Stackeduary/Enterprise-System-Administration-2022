@@ -1,29 +1,20 @@
 package com.adilsdeals.car;
 
+import javax.persistence.*;
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@Entity(name = "carEntry")
+
 public class CarEntry {
+    @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "available", nullable = false)
     private boolean available;
+
+    @Column(name = "car", nullable = false, unique = true)
     private Car car;
-
-    // constructor
-    public CarEntry(boolean available, Car car) {
-        this.available = available;
-        this.car = car;
-    }
-
-    // getters and setters
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
 }
