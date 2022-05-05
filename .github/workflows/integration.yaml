@@ -12,6 +12,12 @@ jobs:
       matrix:
         distribution: ['temurin', 'zulu']
 
+    services:
+      postgres:
+        image: postgres:alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
