@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "app.security.secret_key",
+      "type": "java.lang.String",
+      "description": "Description for app.security.secret_key."
+    },
+    {
+      "name": "app.security.token_prefix",
+      "type": "java.lang.String",
+      "description": "Description for app.security.token_prefix."
+    },
+    {
+      "name": "app.security.header_string",
+      "type": "java.lang.String",
+      "description": "Description for app.security.header_string."
+    }
+  ] }
