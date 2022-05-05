@@ -5,15 +5,9 @@ on:
     branches:
       - main
 
-env:
-  IMAGE: ghcr.io/stackeduary/adilsdeals-api
-
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     services:
       postgres:
@@ -41,16 +35,3 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew test
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          tags: ${{ env.IMAGE }}:latest
-          push: true
