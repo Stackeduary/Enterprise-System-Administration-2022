@@ -1,7 +1,7 @@
 FROM gradle:jdk11-alpine as build
 WORKDIR /app
 COPY . .
-RUN gradle build
+RUN gradle build -x test
 
 FROM openjdk:11-jdk-slim as runtime
 WORKDIR /app
