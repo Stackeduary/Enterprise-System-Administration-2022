@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/adilsdeals-api
+  IMAGE: ghcr.io/stackeduary/adilsdeals-api
 
 jobs:
   test:
