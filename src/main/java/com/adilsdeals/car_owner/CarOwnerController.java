@@ -17,7 +17,7 @@ public class CarOwnerController {
     @PostMapping("/create")
     public ResponseEntity<?> createCarOwner(@RequestBody CarOwnerCreateDto carOwnerCreateDto) {
         try {
-            CarOwnerDto carOwnerDto = carOwnerService.createCarOwner(carOwner);
+            CarOwnerDto carOwnerDto = carOwnerService.createCarOwner(carOwnerDto);
             return new ResponseEntity<>(carOwnerDto, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
