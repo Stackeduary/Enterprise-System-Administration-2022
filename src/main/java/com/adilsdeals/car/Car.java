@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @Entity(name = "car")
-
 public class Car {
     @Setter(AccessLevel.NONE)
     @Id
@@ -18,35 +17,33 @@ public class Car {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Setter(AccessLevel.NONE)
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "license_plate_number", nullable = false, unique = true)
     private String licensePlateNumber;
 
-    @Setter(AccessLevel.NONE)
-    @Column(name = "model", nullable = false)
+    @Column(name = "make", nullable = false)
     private String make;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "model", nullable = false)
     private String model;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "year", nullable = false)
     private int year;
 
-    @Setter(AccessLevel.NONE)
-    @Column(name = "currentMarketValue", nullable = false)
+    @Column(name = "current_market_value", nullable = false)
     private BigDecimal currentMarketValue;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "mileage", nullable = false)
     private BigDecimal mileage;
     
-    @Setter(AccessLevel.NONE)
-    @Column(name = "customer", nullable = false)
+    @JoinColumn(name = "customer", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY)
     private Customer customer;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "pickupLocation", nullable = false)
-    private PickupLocation pickupLocation(private String latitude, private String longitude);
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "latitude", column = @Column(name = "latitude")),
+            @AttributeOverride(name = "longitude", column = @Column(name = "longitude"))
+    })
+    private PickupLocation pickupLocation;
 }

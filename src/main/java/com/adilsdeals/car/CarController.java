@@ -6,9 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/car")
@@ -19,19 +16,9 @@ public class CarController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCar(
-            @RequestBody CarCreateDto car {
+            @RequestBody CarCreateDto car) {
         try {
-            CarDto carDto = carService.createCar(
-                car.getLicensePlateNumber(),
-                car.getMake(),
-                car.getModel(),
-                car.getYear(),
-                car.getCurrentMarketValue(),
-                car.getMileage(),
-                car.getCustomer(),
-                car.getPickupLocation()
-            );
-
+            CarDto carDto = carService.createCar(car);
             return new ResponseEntity<>(carDto, HttpStatus.CREATED);
         } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -57,13 +44,14 @@ public class CarController {
         }
     }
 
-    @PostMapping(value="/update/{carId}")
+    @PutMapping(value="/update/{carId}")
     public ResponseEntity<?> update(@PathVariable("carId") int carId, @RequestBody CarDto car) {
         try {
-            carDto updatedCar = carService.updatedCar(carId, car);
+            carDto updatedCar = carService.updateCar(carId, car);
             return new ResponseEntity<>(updatedCar, HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("delete/{carId}")
