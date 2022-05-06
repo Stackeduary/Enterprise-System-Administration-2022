@@ -1,8 +1,7 @@
 package com.adilsdeals.employee;
 
-import com.adilsdeals.employee.Employee;
+import com.adilsdeals.employee.dto.EmployeeCreateDto;
 import com.adilsdeals.employee.dto.EmployeeDto;
-import com.adilsdeals.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,22 +13,12 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeDto createEmployee(String username, String name, String password, String passwordConfirm) {
-        if(
-            username.isEmpty() || name.isEmpty() ||
-            password.isEmpty() || passwordConfirm.isEmpty() ||
-                    !password.equals(passwordConfirm)) {
-            return null;
+    public EmployeeDto createEmployee(EmployeeCreateDto employeeDto) throws Exception {
+        if(!employeeDto.getPassword().equals(employeeDto.getPasswordCheck())) {
+            throw new Exception("Wrong password");
         }
-
-        Employee employee = employeeRepository.save(
-                Employee.builder()
-                        .name(name)
-                        .username(username)
-                        .password(passwordEncoder.encode(password))
-                        .build());
+        Employee employee = employeeRepository.save(modelMapper.map(employeeDto, Employee.class));
 
         return modelMapper.map(employee, EmployeeDto.class);
     }
@@ -40,8 +29,8 @@ public class EmployeeService {
 
     public EmployeeDto updateEmployee(Integer id, EmployeeDto employeeDto) {
         Employee employee = employeeRepository.getById(id);
-        employee.setName(employeeDto.getName());
-        employee.setUsername(employeeDto.getUsername());
+        if (employeeDto.getName() != null) employee.setName(employeeDto.getName());
+        if (employeeDto.getUsername() != null) employee.setUsername(employeeDto.getUsername());
         return modelMapper.map(employeeRepository.save(employee), EmployeeDto.class);
     }
 }
