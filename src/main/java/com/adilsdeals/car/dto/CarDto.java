@@ -13,6 +13,6 @@ public class CarDto {
     private int year;
     private BigDecimal currentMarketValue;
     private BigDecimal mileage;
-    private CustomerDto customer;
+    private CarOwnerDto carOwner; // do we want CarOwnerDto or CarOwner here?
     private PickupLocation pickupLocation;
 }
