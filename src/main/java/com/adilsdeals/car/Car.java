@@ -1,8 +1,9 @@
 package com.adilsdeals.car;
 
+import com.adilsdeals.car.models.PickupLocation;
+import com.adilsdeals.car_owner.CarOwner;
 import lombok.*;
 import javax.persistence.*;
-import java.util.Date;
 import java.math.BigDecimal;
 
 @Getter
@@ -35,9 +36,9 @@ public class Car {
     @Column(name = "mileage", nullable = false)
     private BigDecimal mileage;
     
-    @JoinColumn(name = "customer", nullable = false)
+    @JoinColumn(name = "car_owner", nullable = false)
     @OneToMany(fetch = FetchType.LAZY)
-    private Customer customer;
+    private CarOwner carOwner;
 
     @Column(name = "pickupLocation", nullable = false)
     @Embedded

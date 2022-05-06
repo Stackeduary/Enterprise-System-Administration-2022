@@ -20,8 +20,8 @@ public class CarController {
         try {
             CarDto carDto = carService.createCar(car);
             return new ResponseEntity<>(carDto, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -30,8 +30,8 @@ public class CarController {
         try {
             CarDto carDto = carService.getCar(carId);
             return new ResponseEntity<>(carDto, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -39,18 +39,18 @@ public class CarController {
     public ResponseEntity<?> getAllCars() {
         try {
             return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping(value="/update/{carId}")
+    @PutMapping("/update/{carId}")
     public ResponseEntity<?> update(@PathVariable("carId") int carId, @RequestBody CarDto car) {
         try {
             carDto updatedCar = carService.updateCar(carId, car);
             return new ResponseEntity<>(updatedCar, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -58,9 +58,9 @@ public class CarController {
     public ResponseEntity<?> delete(@PathVariable("carId") int carId) {
         try {
             carService.deleteCar(carId);
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }    
 }
