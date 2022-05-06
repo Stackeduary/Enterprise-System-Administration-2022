@@ -18,11 +18,7 @@ public class EmployeeController {
     public ResponseEntity<?> createEmployee(
             @RequestBody EmployeeCreateDto employee) {
         try {
-            EmployeeDto employeeDto = employeeService.createEmployee(
-                    employee.getUsername(),
-                    employee.getName(),
-                    employee.getPassword(),
-                    employee.getPasswordCheck());
+            EmployeeDto employeeDto = employeeService.createEmployee(employee);
 
             return new ResponseEntity<>(employeeDto, HttpStatus.CREATED);
         } catch (Exception ex) {
