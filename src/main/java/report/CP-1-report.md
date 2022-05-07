@@ -14,14 +14,13 @@ Deployed app: www.voldylovesaws.ua
 <br>
 
 ## Data Entities
-<hr>
 
+- car
+- car owner
+- car rent
 - employee
 - car catalog
 - car entry
-- car
-- car rent
-- car owner
 - car repair
 - car repair history
 - VGG employee
@@ -31,7 +30,6 @@ Deployed app: www.voldylovesaws.ua
 <br>
 
 ## REST API
-<hr>
 
 URI | HTTP Verb | Description
 ---|---|---
@@ -51,4 +49,3 @@ URI | HTTP Verb | Description
 <br>
 
 ## Security Aspects
-<hr>
