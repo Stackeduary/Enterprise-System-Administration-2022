@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity(name = "car_owner")
 public class CarOwner {
@@ -21,7 +22,7 @@ public class CarOwner {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "telephoneNumber", nullable = false)
+    @Column(name = "telephone_number", nullable = false)
     private String telephoneNumber;
 
     @Column(name = "email", nullable = false)
