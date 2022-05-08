@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/employee")
@@ -18,31 +19,28 @@ public class EmployeeController {
     public ResponseEntity<?> createEmployee(
             @RequestBody EmployeeCreateDto employee) {
         try {
-            EmployeeDto employeeDto = employeeService.createEmployee(employee);
-
-            return new ResponseEntity<>(employeeDto, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(employeeService.createEmployee(employee), HttpStatus.CREATED);
+        } catch (ResponseStatusException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id ){
+    public ResponseEntity<EmployeeDto> delete(@PathVariable("id") Integer id ){
         try{
             employeeService.deleteEmployee(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch(Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody EmployeeDto employee) {
+    public ResponseEntity<EmployeeDto> update(@PathVariable("id") Integer id, @RequestBody EmployeeDto employee) {
         try{
-            EmployeeDto updatedEmployee = employeeService.updateEmployee(id, employee);
-            return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+            return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
