@@ -8,13 +8,16 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @Entity(name = "carEntry")
-
 public class CarEntry {
     @Setter(AccessLevel.NONE)
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private int id;
+
     @Column(name = "available", nullable = false)
     private boolean available;
 
-    @Column(name = "car", nullable = false, unique = true)
+    @JoinColumn(name = "car", nullable = false, unique = true)
     private Car car;
 }
