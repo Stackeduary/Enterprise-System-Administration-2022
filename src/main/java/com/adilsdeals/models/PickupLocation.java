@@ -1,4 +1,4 @@
-package com.adilsdeals.car.models;
+package com.adilsdeals.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -19,5 +19,6 @@ public class CarEntry {
     private boolean available;
 
     @JoinColumn(name = "car", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.LAZY)
     private Car car;
 }

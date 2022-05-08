@@ -1,6 +1,5 @@
 package com.adilsdeals.car;
 
-import com.adilsdeals.car.dto.CarCreateDto;
 import com.adilsdeals.car.dto.CarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ public class CarController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCar(
-            @RequestBody CarCreateDto car) {
+            @RequestBody CarDto car) {
         try {
             CarDto carDto = carService.createCar(car);
             return new ResponseEntity<>(carDto, HttpStatus.CREATED);
@@ -47,7 +46,7 @@ public class CarController {
     @PutMapping("/update/{carId}")
     public ResponseEntity<?> update(@PathVariable("carId") int carId, @RequestBody CarDto car) {
         try {
-            carDto updatedCar = carService.updateCar(carId, car);
+            CarDto updatedCar = carService.updateCar(carId, car);
             return new ResponseEntity<>(updatedCar, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -58,7 +57,7 @@ public class CarController {
     public ResponseEntity<?> delete(@PathVariable("carId") int carId) {
         try {
             carService.deleteCar(carId);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,6 @@
 package com.adilsdeals.car.dto;
 
-import com.adilsdeals.car.models.PickupLocation;
+import com.adilsdeals.models.PickupLocation;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -13,6 +13,6 @@ public class CarDto {
     private int year;
     private BigDecimal currentMarketValue;
     private BigDecimal mileage;
-    private CarOwnerDto carOwner; // do we want CarOwnerDto or CarOwner here?
+    private int carOwnerId;
     private PickupLocation pickupLocation;
 }

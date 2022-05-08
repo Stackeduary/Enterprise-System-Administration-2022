@@ -1,6 +1,6 @@
 package com.adilsdeals.car;
 
-import com.adilsdeals.car.models.PickupLocation;
+import com.adilsdeals.models.PickupLocation;
 import com.adilsdeals.car_owner.CarOwner;
 import lombok.*;
 import javax.persistence.*;
@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "car")
 public class Car {
     @Setter(AccessLevel.NONE)
@@ -35,12 +36,12 @@ public class Car {
 
     @Column(name = "mileage", nullable = false)
     private BigDecimal mileage;
-    
+
     @JoinColumn(name = "car_owner", nullable = false)
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CarOwner carOwner;
 
-    @Column(name = "pickupLocation", nullable = false)
+    @Column(name = "pickup_location", nullable = false)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "latitude", column = @Column(name = "latitude")),
