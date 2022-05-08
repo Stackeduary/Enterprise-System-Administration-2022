@@ -1,0 +1,25 @@
+version: "3"
+services:
+  backend:
+    container_name: backend
+    image: ghcr.io/stackeduary/adilsdeals-api:latest
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${DB_NAME}"
+      SPRING_DATASOURCE_USER: "${DB_USER}"
+      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - "80:8031"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
