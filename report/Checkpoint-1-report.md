@@ -113,5 +113,3 @@ URI | HTTP Verb | Description
 Role | Description
 ---|---
  employee | can perform CRUD operations on all cars, car owners, repair reservations and rental reservations
-
-reqs https://courses.cs.ut.ee/MTAT.03.229/2022_spring/uploads/Main/Project_CP_1_2022.pdf (to delete later)
