@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder);
         auth.authenticationProvider(authenticationProvider);
         auth.userDetailsService(userDetailsService);
+        auth.jdbcAuthentication().passwordEncoder(passwordEncoder);
     }
 
     @Override
