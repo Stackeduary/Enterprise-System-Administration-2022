@@ -1,4 +1,5 @@
 package com.adilsdeals.car_repair;
+import com.adilsdeals.car.Car;
 import com.adilsdeals.models.Duration;
 import lombok.*;
 
@@ -24,5 +25,9 @@ public class CarRepair {
             @AttributeOverride(name = "finishTime", column = @Column(name = "repair_finish_time"))
     })
     private Duration repairTime;
+
+    @JoinColumn(name = "car")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Car car;
 }
 

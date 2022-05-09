@@ -11,4 +11,5 @@ import java.util.Date;
 public class CarRepairDto {
     private String status;
     private Duration repairTime;
+    private int carId;
 }
