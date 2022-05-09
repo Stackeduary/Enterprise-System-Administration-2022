@@ -14,10 +14,10 @@ public class CarEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "available", nullable = false)
-    private boolean available;
+    private Boolean available;
 
     @JoinColumn(name = "car", nullable = false, unique = true)
     @OneToOne()
