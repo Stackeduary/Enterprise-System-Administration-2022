@@ -49,9 +49,7 @@ URI | HTTP Verb | Description
  /cars/repair/{id} | GET | view a repair reservation with a specified ID
  /cars/repair | GET | view all repair reservations
  /cars/repair/{id} | PUT | edit a specific repair reservation's attributes
- /cars/repair/{id} | DELETE | remove a specific repair reservation
- 
- / |  |  
+ /cars/repair/{id} | DELETE | remove a specific repair reservation 
 
 <br>
 
