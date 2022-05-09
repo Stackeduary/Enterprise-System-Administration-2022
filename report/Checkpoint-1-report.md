@@ -15,14 +15,69 @@ Deployed app: https://api.chernetskyi.com
 
 ## Data Entities
 
-- car
-- car owner
-- car rent
-- employee
-- car catalog
-- car entry
-- car repair
-- repair bay
+```mermaid
+classDiagram
+  Employee --> CarEntry
+  CarEntry *-- Car
+  CarOwner --* Car
+  CarRent --* Car 
+  CarRepair *-- Car
+  PickupLocation <|-- Car 
+  Duration <|-- CarRent
+  Duration <|-- CarRepair
+  RepairBay --o CarRepair
+
+  class Employee{
+    -Integer id
+    -String username
+    -String password
+    -String name
+  }
+
+  class Car{
+    -Integer id
+    -String licensePlateNumber
+    -String make 
+    -String model
+    -Integer year
+  }
+
+  class CarEntry{
+    -Integer id
+    -Boolean available
+  }
+
+  class PickupLocation{
+    -String latitude
+    -String longitude
+  }
+
+  class CarRent{
+    -Integer id
+  }
+
+  class RepairBay {
+      -Integer id
+  }
+
+  class CarOwner {
+      -Integer id
+      -String name
+      -String address
+      -String telephoneNumber
+      -String email
+  }
+
+  class CarRepair {
+      -Integer id
+      -String status
+  }
+
+  class Duration {
+    -Date startTime
+    -Date finishTime
+  }
+```
 
 <br>
 
