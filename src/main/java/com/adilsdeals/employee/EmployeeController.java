@@ -25,7 +25,7 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<EmployeeDto> delete(@PathVariable("id") Integer id ){
         try{
             employeeService.deleteEmployee(id);
@@ -35,7 +35,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<EmployeeDto> update(@PathVariable("id") Integer id, @RequestBody EmployeeDto employee) {
         try{
             return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.OK);

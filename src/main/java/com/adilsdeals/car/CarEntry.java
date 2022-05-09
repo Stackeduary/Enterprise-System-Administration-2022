@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "carEntry")
 public class CarEntry {
     @Setter(AccessLevel.NONE)
@@ -19,6 +20,6 @@ public class CarEntry {
     private boolean available;
 
     @JoinColumn(name = "car", nullable = false, unique = true)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     private Car car;
 }

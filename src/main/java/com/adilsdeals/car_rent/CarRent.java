@@ -27,6 +27,6 @@ public class CarRent {
     private Duration rentTime;
 
     @JoinColumn(name = "car_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private Car car;
 }
