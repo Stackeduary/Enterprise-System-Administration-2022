@@ -1,5 +1,6 @@
 package com.adilsdeals.car_repair;
 import com.adilsdeals.car.Car;
+import com.adilsdeals.car_repair_bay.CarRepairBay;
 import com.adilsdeals.models.Duration;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @Entity(name="car_repair")
+@NoArgsConstructor
 public class CarRepair {
 
     @Id
@@ -18,7 +20,6 @@ public class CarRepair {
     @Column(name="status")
     private String status;
 
-    @Column(name="repair_time")
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "startTime", column = @Column(name = "repair_start_time")),
@@ -29,5 +30,9 @@ public class CarRepair {
     @JoinColumn(name = "car")
     @ManyToOne()
     private Car car;
+
+    @JoinColumn(name = "car_repair_bay_id")
+    @OneToOne()
+    private CarRepairBay carRepairBay;
 }
 

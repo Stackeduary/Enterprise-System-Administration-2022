@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarRepairRepository extends JpaRepository<CarRepair, Integer> {
-
+    boolean existsByCarRepairBay_Id(Integer carRepairBayId);
 }

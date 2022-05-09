@@ -17,7 +17,7 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "license_plate_number", nullable = false, unique = true)
     private String licensePlateNumber;
@@ -29,7 +29,7 @@ public class Car {
     private String model;
 
     @Column(name = "year", nullable = false)
-    private int year;
+    private Integer year;
 
     @Column(name = "current_market_value", nullable = false)
     private BigDecimal currentMarketValue;
