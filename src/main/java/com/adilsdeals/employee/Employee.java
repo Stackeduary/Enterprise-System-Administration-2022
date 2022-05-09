@@ -3,7 +3,6 @@ package com.adilsdeals.employee;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
