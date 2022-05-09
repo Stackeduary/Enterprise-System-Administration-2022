@@ -5,6 +5,7 @@ import com.adilsdeals.employee.dto.EmployeeDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,12 +15,19 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public EmployeeDto createEmployee(EmployeeCreateDto employeeDto) throws ResponseStatusException {
         if(!employeeDto.getPassword().equals(employeeDto.getPasswordCheck())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Passwords don't match");
         }
-        Employee employee = employeeRepository.save(modelMapper.map(employeeDto, Employee.class));
+        Employee employee = employeeRepository.save(
+                Employee.builder()
+                        .name(employeeDto.getName())
+                        .username(employeeDto.getUsername())
+                        .password(passwordEncoder.encode(employeeDto.getPassword()))
+                        .build()
+        );
 
         return modelMapper.map(employee, EmployeeDto.class);
     }
