@@ -9,7 +9,7 @@
 
 GitHub repo: https://github.com/Stackeduary/Enterprise-System-Integration-2022
 
-Deployed app: api.chernetskyi.com
+Deployed app: https://api.chernetskyi.com
 
 <br>
 
