@@ -17,8 +17,7 @@ public class CarController {
     public ResponseEntity<?> createCar(
             @RequestBody CarDto car) {
         try {
-            CarDto carDto = carService.createCar(car);
-            return new ResponseEntity<>(carDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(carService.createCar(car), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -27,14 +26,13 @@ public class CarController {
     @GetMapping("/{carId}")
     public ResponseEntity<?> getCar(@PathVariable int carId) {
         try {
-            CarDto carDto = carService.getCar(carId);
-            return new ResponseEntity<>(carDto, HttpStatus.OK);
+            return new ResponseEntity<>(carService.getCar(carId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<?> getAllCars() {
         try {
             return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
@@ -43,17 +41,16 @@ public class CarController {
         }
     }
 
-    @PutMapping("/update/{carId}")
+    @PutMapping("/{carId}")
     public ResponseEntity<?> update(@PathVariable("carId") int carId, @RequestBody CarDto car) {
         try {
-            CarDto updatedCar = carService.updateCar(carId, car);
-            return new ResponseEntity<>(updatedCar, HttpStatus.OK);
+            return new ResponseEntity<>(carService.updateCar(carId, car), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("delete/{carId}")
+    @DeleteMapping("/{carId}")
     public ResponseEntity<?> delete(@PathVariable("carId") int carId) {
         try {
             carService.deleteCar(carId);

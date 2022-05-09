@@ -18,8 +18,7 @@ public class CarOwnerController {
     @PostMapping("/create")
     public ResponseEntity<?> createCarOwner(@RequestBody CarOwnerDto carOwnerDto) {
         try {
-            CarOwnerDto newCarOwnerDto = carOwnerService.createCarOwner(carOwnerDto);
-            return new ResponseEntity<>(newCarOwnerDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(carOwnerService.createCarOwner(carOwnerDto), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -35,8 +34,8 @@ public class CarOwnerController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<CarOwnerDto>> getAllCarOwners() {
+    @GetMapping()
+    public ResponseEntity<List<CarOwner>> getAllCarOwners() {
         try {
             return new ResponseEntity<>(carOwnerService.getAllCarOwners(), HttpStatus.OK);
         } catch (Exception e) {
@@ -44,17 +43,16 @@ public class CarOwnerController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody CarOwnerDto carOwner) {
         try {
-            CarOwnerDto updatedCarOwner = carOwnerService.updateCarOwner(id, carOwner);
-            return new ResponseEntity<>(updatedCarOwner, HttpStatus.OK);
+            return new ResponseEntity<>(carOwnerService.updateCarOwner(id, carOwner), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id){
         try {
             carOwnerService.deleteCarOwner(id);

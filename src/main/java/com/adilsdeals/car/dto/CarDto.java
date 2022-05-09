@@ -10,9 +10,10 @@ public class CarDto {
     private String licensePlateNumber;
     private String make;
     private String model;
-    private int year;
+    private Integer year;
     private BigDecimal currentMarketValue;
     private BigDecimal mileage;
-    private int carOwnerId;
+    private Integer carOwner;
     private PickupLocation pickupLocation;
+    private Boolean available;
 }

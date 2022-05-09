@@ -27,7 +27,7 @@ public class CarRepair {
     private Duration repairTime;
 
     @JoinColumn(name = "car")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private Car car;
 }
 

@@ -38,10 +38,9 @@ public class Car {
     private BigDecimal mileage;
 
     @JoinColumn(name = "car_owner", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private CarOwner carOwner;
 
-    @Column(name = "pickup_location", nullable = false)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "latitude", column = @Column(name = "latitude")),

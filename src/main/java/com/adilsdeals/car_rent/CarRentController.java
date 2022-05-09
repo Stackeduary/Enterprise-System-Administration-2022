@@ -25,18 +25,18 @@ public class CarRentController {
         return new ResponseEntity(carRentService.createCarRent(carRent), HttpStatus.CREATED);
     }
 
-    @GetMapping(value ="/get/{id}")
+    @GetMapping(value ="/{id}")
     public void getCarRent(@PathVariable Integer id){
         carRentService.getCarRent(id);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCarRent(@PathVariable Integer id){
         carRentService.deleteCarRent(id);
     }
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateCarRent(@PathVariable Integer id, @RequestBody CarRentDto carRent){
         return new ResponseEntity(carRentService.updateCarRent(id, carRent), HttpStatus.OK);
     }

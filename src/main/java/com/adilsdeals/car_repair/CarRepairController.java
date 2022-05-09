@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.*;
 import com.adilsdeals.car_repair.dto.CarRepairDto;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/cars/repair")
 @RequiredArgsConstructor
 public class CarRepairController {
 
     private final CarRepairService carRepairService;
 
-    @GetMapping(value ="/repair")
+    @GetMapping()
     public List<CarRepair> getCarRepairHistory(){
         return carRepairService.getCarRepairHistory();
     }
 
-    @PostMapping(value ="/repair/create")
+    @PostMapping("/create")
     public ResponseEntity<?> createCarRepair(@RequestBody CarRepairDto carRepair){
         return new ResponseEntity(carRepairService.createCarRepair(carRepair), HttpStatus.CREATED);
     }
 
-    @GetMapping(value ="/repair/get/{id}")
+    @GetMapping(value ="/{id}")
     public void getCarRepair(@PathVariable Integer id){
         carRepairService.getCarRepair(id);
     }
 
-    @DeleteMapping(value = "/repair/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCarRepair(@PathVariable Integer id){
         carRepairService.deleteCarRepair(id);
     }
 
-    @PutMapping(value = "/repair/update/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateCarRepair(@PathVariable Integer id, @RequestBody CarRepairDto carRepair){
         return new ResponseEntity(carRepairService.updateCarRepair(id, carRepair), HttpStatus.OK);
     }

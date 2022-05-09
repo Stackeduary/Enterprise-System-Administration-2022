@@ -6,7 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -15,23 +14,19 @@ public class CarOwnerService {
     private final CarOwnerRepository carOwnerRepository;
     private final ModelMapper modelMapper;
 
-    public CarOwnerDto createCarOwner(CarOwnerDto carOwnerDto) {
-        CarOwner carOwner = carOwnerRepository.save(modelMapper.map(carOwnerDto, CarOwner.class));
-        return modelMapper.map(carOwner, CarOwnerDto.class);
+    public CarOwner createCarOwner(CarOwnerDto carOwnerDto) {
+        return carOwnerRepository.save(modelMapper.map(carOwnerDto, CarOwner.class));
     }
 
     public CarOwnerDto getCarOwner(int id) {
         return modelMapper.map(carOwnerRepository.getById(id), CarOwnerDto.class);
     }
 
-    public List<CarOwnerDto> getAllCarOwners() {
-        return carOwnerRepository
-                .findAll().stream()
-                .map(carOwner -> modelMapper.map(carOwner, CarOwnerDto.class))
-                .collect(Collectors.toList());
+    public List<CarOwner> getAllCarOwners() {
+        return carOwnerRepository.findAll();
     }
 
-    public CarOwnerDto updateCarOwner(int id, CarOwnerDto carOwnerDto) {
+    public CarOwner updateCarOwner(int id, CarOwnerDto carOwnerDto) {
         CarOwner carOwner = carOwnerRepository.getById(id);
 
         if(carOwnerDto.getName() != null) carOwner.setName(carOwnerDto.getName());
@@ -39,7 +34,7 @@ public class CarOwnerService {
         if(carOwnerDto.getEmail() != null) carOwner.setEmail(carOwner.getEmail());
         if(carOwnerDto.getTelephoneNumber() != null) carOwner.setTelephoneNumber(carOwner.getTelephoneNumber());
 
-        return modelMapper.map(carOwnerRepository.save(carOwner), CarOwnerDto.class);
+        return carOwnerRepository.save(carOwner);
     }
 
     public void deleteCarOwner(int id) {
