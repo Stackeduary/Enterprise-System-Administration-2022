@@ -2,7 +2,7 @@ version: "3"
 services:
   backend:
     container_name: backend
-    build: .
+    build: backend
     restart: unless-stopped
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${DB_NAME}"
