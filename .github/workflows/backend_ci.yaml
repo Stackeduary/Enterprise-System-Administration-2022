@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - backend/**
+      - .github/workflows/backend_ci.yaml
 
 jobs:
   java-test:
