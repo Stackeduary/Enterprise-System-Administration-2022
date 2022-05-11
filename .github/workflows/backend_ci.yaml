@@ -1,12 +1,14 @@
-name: Test
+name: Java Unit test
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - backend/**
 
 jobs:
-  test:
+  java-test:
     runs-on: ubuntu-latest
 
     services:
