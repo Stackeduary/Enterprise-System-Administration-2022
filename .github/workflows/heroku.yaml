@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "report/**"
+      - ".env.example"
+      - ".gitignore"
+      - "README.md"
+      - "docker-compose.local.yml"
 
 jobs:
   heroku:
