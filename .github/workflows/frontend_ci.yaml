@@ -1,0 +1,30 @@
+name: Vue.js lint
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - frontend/**
+
+jobs:
+  vue-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Lint
+        run: npm run lint
+        working-directory: frontend
