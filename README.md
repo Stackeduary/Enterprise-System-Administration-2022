@@ -28,8 +28,8 @@ docker-compose -f docker-compose.local.yml up
 GitHub repo: [Stackeduary/Enterprise-System-Integration-2022](https://github.com/Stackeduary/Enterprise-System-Integration-2022)
 
 Deployed app:
- - [https://api.chernetskyi.com](https://api.chernetskyi.com) on AWS
- - [https://adilsdealsapi.herokuapp.com/](https://adilsdealsapi.herokuapp.com/) on Heroku
+ - [https://adilsdeals.chernetskyi.com](https://adilsdeals.chernetskyi.com) on AWS
+ - [https://adilsdeals.herokuapp.com/](https://adilsdeals.herokuapp.com/) and [https://adilsdealsapi.herokuapp.com/](https://adilsdealsapi.herokuapp.com/) on Heroku
 
 <br>
 
