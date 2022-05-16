@@ -12,7 +12,14 @@
       <li><a href="#" class="secondary">Data</a></li>
       <!-- TODO: add logout feature -->
       <li>
-        <a href="#" role="button" id="logout">Logout</a>
+        <a
+          href="#"
+          role="button"
+          id="logout"
+          v-if="sessionStorage.getItem('Token') !== null"
+          >Logout</a
+        >
+        <a href="#" role="button" id="login" v-else>Login</a>
       </li>
     </ul>
   </nav>
