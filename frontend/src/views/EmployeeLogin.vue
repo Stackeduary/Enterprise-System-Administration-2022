@@ -33,6 +33,7 @@
 <script>
 import * as api from "./api";
 import axios from "axios";
+import router from "@/router";
 export default {
   name: "EmployeeLogin",
   data() {
@@ -54,8 +55,7 @@ export default {
         .post(api.ENDPOINTS.employeeLogin, data)
         .then((response) => {
           sessionStorage.setItem("Token", response.headers["authorization"]);
-          this.$swal("Yay!", "Successful login", "success");
-          // redirect
+          router.replace("/");
         })
         .catch((error) => {
           console.log(error);

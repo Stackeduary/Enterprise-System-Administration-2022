@@ -10,16 +10,13 @@
       <li><a href="#" class="secondary">Repair</a></li>
       <li><a href="#" class="secondary">Rent</a></li>
       <li><a href="#" class="secondary">Data</a></li>
-      <!-- TODO: add logout feature -->
       <li>
-        <a
-          href="#"
-          role="button"
-          id="logout"
-          v-if="sessionStorage.getItem('Token') !== null"
-          >Logout</a
+        <button @click="logout" id="logout" v-if="isAuthenticated()">
+          Logout
+        </button>
+        <router-link to="/login" role="button" id="login" v-else
+          >Login</router-link
         >
-        <a href="#" role="button" id="login" v-else>Login</a>
       </li>
     </ul>
   </nav>
@@ -27,7 +24,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    isAuthenticated() {
+      return sessionStorage.getItem("Token") !== null;
+    },
+    logout() {
+      sessionStorage.removeItem("Token");
+      this.$forceUpdate();
+    },
+  },
+};
 </script>
 <style scoped>
 .secondary:hover {
