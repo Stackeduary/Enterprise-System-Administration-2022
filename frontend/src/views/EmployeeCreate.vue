@@ -1,8 +1,5 @@
 <template>
   <main>
-    <h3 v-if="result > 0">Employee created!</h3>
-    <h3 v-if="result < 0">Oh no, something went wrong 😢</h3>
-
     <form class="container">
       <label for="name">
         Name
@@ -68,7 +65,6 @@ export default {
         password: "",
         passwordCheck: "",
       },
-      result: 0,
     };
   },
   methods: {
@@ -84,11 +80,11 @@ export default {
         .post(api.ENDPOINTS.employeeCreate, data)
         .then((response) => {
           console.log(response);
-          this.result = 1;
+          this.$swal("Yay!", "Employee created!", "success");
         })
         .catch((error) => {
           console.log(error);
-          this.result = -1;
+          this.$swal("Oops", "Something went wrong", "error");
         });
     },
   },
