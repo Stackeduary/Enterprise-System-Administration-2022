@@ -3,6 +3,10 @@ import Mainpage from "../views/Mainpage.vue";
 import EmployeeCreate from "../views/EmployeeCreate.vue";
 import EmployeeLogin from "../views/EmployeeLogin.vue";
 
+const isAuthenticated = () => {
+  return sessionStorage.getItem("Token") !== null;
+};
+
 const routes = [
   {
     path: "/",
@@ -27,4 +31,11 @@ const router = createRouter({
   routes,
 });
 
+// eslint-disable-next-line no-unused-vars
+router.beforeEach(async (to, from) => {
+  console.log("test");
+  if (!isAuthenticated() && to.name !== "EmployeeLogin") {
+    return { name: "EmployeeLogin" };
+  }
+});
 export default router;
