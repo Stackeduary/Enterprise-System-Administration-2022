@@ -36,7 +36,7 @@ router.beforeEach(async (to, from) => {
   console.log("test");
   if (
     !isAuthenticated() &&
-    (to.name !== "EmployeeLogin" || to.name !== "EmployeeCreate")
+    !(to.name === "EmployeeLogin" || to.name === "EmployeeCreate")
   ) {
     return { name: "EmployeeLogin" };
   }
