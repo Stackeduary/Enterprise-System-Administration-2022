@@ -3,7 +3,7 @@
     <div>
       <h1>Car Owners</h1>
       <p>
-        <router-link to="/car-owners/new">Add a new car owner</router-link>
+        <router-link to="/carowner">Add a new car owner</router-link>
       </p>
       <CustomTable :columns="columns" :items="this.carOwners" link="carowner" />
     </div>

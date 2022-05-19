@@ -8,4 +8,6 @@ export const ENDPOINTS = {
     update: (id) => BASE_URL + "/car/" + id,
   },
   carOwners: BASE_URL + "/car-owner",
+  carOwner: BASE_URL + "/car-owner/",
+  carOwnerCreate: BASE_URL + "/car-owner/create",
 };
