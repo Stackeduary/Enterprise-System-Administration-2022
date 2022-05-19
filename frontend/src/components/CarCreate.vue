@@ -112,7 +112,7 @@
         />
       </label>
 
-      <button @click="createCar" type="submit">Create</button>
+      <button @click="createOrUpdateCar" type="submit">Create</button>
     </form>
   </main>
 </template>
@@ -140,7 +140,7 @@ export default {
     };
   },
   methods: {
-    createCar(e) {
+    createOrUpdateCar(e) {
       e.preventDefault();
       const data = {
         licensePlateNumber: this.Car.licensePlateNumber,
@@ -156,22 +156,47 @@ export default {
         },
         available: this.Car.available,
       };
-      axios
-        .post(api.ENDPOINTS.car.create, data, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          //this.$swal("Yay!", "Employee created!", "success");
-          //router.replace({ path: "/login" });
-        })
-        .catch((error) => {
-          console.log(error);
-          //this.$swal("Oops", "Something went wrong", "error");
-        });
+      switch (this.id) {
+        case false:
+          axios
+            .post(api.ENDPOINTS.car.create, data, {
+              headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+              },
+            })
+            .then((response) => {
+              console.log(response);
+              //this.$swal("Yay!", "Employee created!", "success");
+              //router.replace({ path: "/login" });
+            })
+            .catch((error) => {
+              console.log(error);
+              //this.$swal("Oops", "Something went wrong", "error");
+            });
+          break;
+        case true:
+          data.id = this.id;
+          axios
+            .put(api.ENDPOINTS.car.update(this.id), data, {
+              headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+              },
+            })
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+              //this.$swal("Oops", "Something went wrong", "error");
+            });
+      }
     },
+  },
+  params: {
+    id: null,
+  },
+  beforeCreate() {
+    this.id = this.$route.params.id;
   },
 };
 </script>

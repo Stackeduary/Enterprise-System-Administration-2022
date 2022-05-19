@@ -6,6 +6,7 @@ import CarCreate from "@/components/CarCreate";
 import Car from "@/views/Car";
 import CarOwners from "@/views/CarOwners";
 import CarOwner from "@/views/CarOwner";
+import CarDetails from "@/views/CarDetails";
 
 const isAuthenticated = () => {
   return sessionStorage.getItem("Token") !== null;
@@ -46,6 +47,11 @@ const routes = [
     path: "/car/create",
     name: "CarCreate",
     component: CarCreate,
+  },
+  {
+    path: "/car/:id",
+    name: "CarDetails",
+    component: CarDetails,
   },
 ];
 
