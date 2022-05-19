@@ -6,4 +6,5 @@ export const ENDPOINTS = {
     list: BASE_URL + "/car",
     create: BASE_URL + "/car/create",
   },
+  carOwners: BASE_URL + "/car-owner",
 };

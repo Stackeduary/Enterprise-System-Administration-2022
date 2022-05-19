@@ -4,6 +4,9 @@ import EmployeeCreate from "../views/EmployeeCreate.vue";
 import EmployeeLogin from "../views/EmployeeLogin.vue";
 import CarCreate from "@/components/CarCreate";
 import Car from "@/views/Car";
+import CarOwners from "@/views/CarOwners";
+import CarOwner from "@/views/CarOwner";
+
 const isAuthenticated = () => {
   return sessionStorage.getItem("Token") !== null;
 };
@@ -25,6 +28,16 @@ const routes = [
     component: EmployeeLogin,
   },
   {
+    path: "/carowners",
+    name: "CarOwners",
+    component: CarOwners,
+  },
+  {
+    path: "/carowner/:id",
+    name: "CarOwner",
+    component: CarOwner,
+  },
+  {
     path: "/car/manage",
     name: "Car",
     component: Car,
@@ -44,12 +57,12 @@ const router = createRouter({
 
 // eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
-  console.log(isAuthenticated());
-  // if (
-  //   !isAuthenticated() &&
-  //   !(to.name === "EmployeeLogin" || to.name === "EmployeeCreate")
-  // ) {
-  //   return { name: "EmployeeLogin" };
-  // }
+  console.log("test");
+  if (
+    !isAuthenticated() &&
+    !(to.name === "EmployeeLogin" || to.name === "EmployeeCreate")
+  ) {
+    return { name: "EmployeeLogin" };
+  }
 });
 export default router;
