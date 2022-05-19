@@ -120,7 +120,7 @@
 <script>
 import * as api from "../views/api";
 import axios from "axios";
-//import router from "@/router";
+import router from "@/router";
 export default {
   name: "CarCreate",
   data() {
@@ -156,7 +156,7 @@ export default {
         },
         available: this.Car.available,
       };
-      switch (this.id) {
+      switch (this.id != null && this.id !== "") {
         case false:
           axios
             .post(api.ENDPOINTS.car.create, data, {
@@ -166,16 +166,15 @@ export default {
             })
             .then((response) => {
               console.log(response);
-              //this.$swal("Yay!", "Employee created!", "success");
-              //router.replace({ path: "/login" });
+              this.$swal("Yay!", "Car created!", "success");
+              router.replace({ path: "/car/manage" });
             })
             .catch((error) => {
               console.log(error);
-              //this.$swal("Oops", "Something went wrong", "error");
+              this.$swal("Oops", "Something went wrong", "error");
             });
           break;
         case true:
-          data.id = this.id;
           axios
             .put(api.ENDPOINTS.car.update(this.id), data, {
               headers: {
@@ -183,11 +182,13 @@ export default {
               },
             })
             .then((response) => {
+              this.$swal("Yay!", "Car updated!", "success");
+              router.replace({ path: "/car/manage" });
               console.log(response);
             })
             .catch((error) => {
               console.log(error);
-              //this.$swal("Oops", "Something went wrong", "error");
+              this.$swal("Oops", "Something went wrong", "error");
             });
       }
     },
@@ -195,8 +196,31 @@ export default {
   params: {
     id: null,
   },
-  beforeCreate() {
+  beforeMount() {
     this.id = this.$route.params.id;
+    if (this.id != null && this.id !== "") {
+      axios
+        .get(api.ENDPOINTS.car.update(this.id), {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.Car = response.data.car;
+          this.Car.id = response.data.id;
+          this.Car.carOwner = response.data.car.carOwner.id;
+          this.Car.available = response.data.available;
+          if (response.data.car.pickupLocation) {
+            this.Car.latitude = response.data.car.pickupLocation.latitude;
+            this.Car.longitude = response.data.car.pickupLocation.longitude;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$swal("Oops", "Something went wrong", "error");
+        });
+    }
   },
 };
 </script>

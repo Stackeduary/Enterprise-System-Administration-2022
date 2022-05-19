@@ -45,6 +45,7 @@ export default {
             let car = entry.car;
             car.available = entry.available;
             car.carOwner = entry.car.carOwner.name;
+            car.id = entry.id;
             this.cars.push(car);
           });
         });
