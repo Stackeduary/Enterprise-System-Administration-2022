@@ -1,19 +1,6 @@
 <template>
   <main>
     <form class="container">
-      <label for="name">
-        Name
-        <input
-          v-model="Employee.name"
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Name"
-          required
-        />
-      </label>
-
-      <!-- Markup example 1: input is inside label -->
       <label for="username">
         Username
         <input
@@ -36,19 +23,10 @@
         required
       />
 
-      <label for="passwordCheck">Repeat you password</label>
-      <input
-        v-model="Employee.passwordCheck"
-        type="password"
-        id="passwordCheck"
-        name="passwordCheck"
-        placeholder="Repeat your password"
-        required
-      />
-
       <!-- Button -->
-      <button @click="createEmployee" type="submit">Create</button>
+      <button @click="loginEmployee" type="submit">Login</button>
     </form>
+    <router-link to="/employee/create"> Don't have an account yet</router-link>
   </main>
 </template>
 
@@ -57,36 +35,31 @@ import * as api from "./api";
 import axios from "axios";
 import router from "@/router";
 export default {
-  name: "EmployeeCreate",
+  name: "EmployeeLogin",
   data() {
     return {
       Employee: {
-        name: "",
         username: "",
         password: "",
-        passwordCheck: "",
       },
     };
   },
   methods: {
-    createEmployee(e) {
+    loginEmployee(e) {
       e.preventDefault();
       const data = {
-        name: this.Employee.name,
         username: this.Employee.username,
         password: this.Employee.password,
-        passwordCheck: this.Employee.passwordCheck,
       };
       axios
-        .post(api.ENDPOINTS.employeeCreate, data)
+        .post(api.ENDPOINTS.employeeLogin, data)
         .then((response) => {
-          console.log(response);
-          this.$swal("Yay!", "Employee created!", "success");
-          router.replace({ path: "/login" });
+          sessionStorage.setItem("Token", response.headers["authorization"]);
+          router.replace("/");
         })
         .catch((error) => {
           console.log(error);
-          this.$swal("Oops", "Something went wrong", "error");
+          this.$swal("Oops", "Wrong credentials", "error");
         });
     },
   },

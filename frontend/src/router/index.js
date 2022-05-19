@@ -45,6 +45,7 @@ const router = createRouter({
 
 // eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
+  console.log("test");
   if (
     !isAuthenticated() &&
     !(to.name === "EmployeeLogin" || to.name === "EmployeeCreate")
