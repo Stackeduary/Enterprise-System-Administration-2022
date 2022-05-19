@@ -15,7 +15,7 @@ public class CarOwnerController {
     
     private final CarOwnerService carOwnerService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> createCarOwner(@RequestBody CarOwnerDto carOwnerDto) {
         try {
             return new ResponseEntity<>(carOwnerService.createCarOwner(carOwnerDto), HttpStatus.CREATED);

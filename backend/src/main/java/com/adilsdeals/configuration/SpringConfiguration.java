@@ -3,6 +3,7 @@ package com.adilsdeals.configuration;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -10,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "com.adilsdeals")
 public class SpringConfiguration {
 
     private static final String ALGORITHM = "MD5";

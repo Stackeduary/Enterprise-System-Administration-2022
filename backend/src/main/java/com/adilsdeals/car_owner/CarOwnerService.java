@@ -26,13 +26,13 @@ public class CarOwnerService {
         return carOwnerRepository.findAll();
     }
 
-    public CarOwner updateCarOwner(int id, CarOwnerDto carOwnerDto) {
-        CarOwner carOwner = carOwnerRepository.getById(id);
+    public CarOwner updateCarOwner(Integer id, CarOwnerDto carOwnerDto) {
+        CarOwner carOwner = carOwnerRepository.findById(id).orElseThrow();
 
         if(carOwnerDto.getName() != null) carOwner.setName(carOwnerDto.getName());
         if(carOwnerDto.getAddress() != null) carOwner.setAddress(carOwnerDto.getAddress());
-        if(carOwnerDto.getEmail() != null) carOwner.setEmail(carOwner.getEmail());
-        if(carOwnerDto.getTelephoneNumber() != null) carOwner.setTelephoneNumber(carOwner.getTelephoneNumber());
+        if(carOwnerDto.getEmail() != null) carOwner.setEmail(carOwnerDto.getEmail());
+        if(carOwnerDto.getTelephoneNumber() != null) carOwner.setTelephoneNumber(carOwnerDto.getTelephoneNumber());
 
         return carOwnerRepository.save(carOwner);
     }

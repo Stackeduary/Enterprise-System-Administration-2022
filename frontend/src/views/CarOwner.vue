@@ -46,12 +46,19 @@
         />
       </label>
 
-      <button @click="createCarOwner" type="submit">Create car owner</button>
+      <button @click="createCarOwner" type="submit">
+        <span v-if="isIdNull">Create car owner</span>
+        <span v-else>Update car owner</span>
+      </button>
     </form>
   </main>
 </template>
 
 <script>
+import axios from "axios";
+import * as api from "@/views/api";
+import router from "@/router";
+
 export default {
   name: "CarOwner",
   data() {
@@ -59,7 +66,7 @@ export default {
       CarOwner: {
         name: "",
         address: "",
-        phone: "",
+        telephoneNumber: "",
         email: "",
       },
     };
@@ -67,8 +74,61 @@ export default {
   params: {
     id: null,
   },
-  beforeCreate() {
+  computed: {
+    isIdNull() {
+      console.log(this.id);
+      return this.id == null || this.id == "";
+    },
+  },
+  methods: {
+    createCarOwner(e) {
+      e.preventDefault();
+      const data = {
+        name: this.CarOwner.name,
+        address: this.CarOwner.address,
+        telephoneNumber: this.CarOwner.telephoneNumber,
+        email: this.CarOwner.email,
+      };
+      (this.id == null || this.id == ""
+        ? axios.post(api.ENDPOINTS.carOwner + this.id, data, {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+            },
+          })
+        : axios.put(api.ENDPOINTS.carOwner, data, {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+            },
+          })
+      )
+        .then((response) => {
+          console.log(response);
+          this.$swal("Yay!", "Car Owner created!", "success");
+          router.replace({ path: "/carowners" });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$swal("Oops", "Something went wrong", "error");
+        });
+    },
+  },
+  beforeMount() {
     this.id = this.$route.params.id;
+    if (this.id != null && this.id != "") {
+      axios
+        .get(api.ENDPOINTS.carOwner + this.id, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+          },
+        })
+        .then((response) => {
+          this.CarOwner = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$swal("Oops", "Something went wrong", "error");
+        });
+    }
   },
 };
 </script>

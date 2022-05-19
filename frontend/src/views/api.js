@@ -3,4 +3,6 @@ export const ENDPOINTS = {
   employeeCreate: BASE_URL + "/employee/create",
   employeeLogin: BASE_URL + "/login",
   carOwners: BASE_URL + "/car-owner",
+  carOwner: BASE_URL + "/car-owner/",
+  carOwnerCreate: BASE_URL + "/car-owner/create",
 };
