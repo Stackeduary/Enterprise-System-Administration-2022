@@ -14,7 +14,7 @@ public class CarRepairBayController {
 
     private final CarRepairBayService carRepairBayService;
 
-    @GetMapping()
+    @GetMapping
     public List<CarRepairBay> getCarRepairBayHistory(){
         return carRepairBayService.getCarRepairBays();
     }

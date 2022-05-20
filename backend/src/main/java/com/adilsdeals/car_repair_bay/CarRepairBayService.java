@@ -17,13 +17,14 @@ public class CarRepairBayService {
 
     public List<CarRepairBay> getCarRepairBays(){
         List<CarRepairBay> repairBays = carRepairBayRepository.findAll();
+        List<CarRepairBay> bays = new ArrayList<>();
         List<Integer> busyRepairBays = carRepairRepository.findDistinctCarRepairBays();
-        repairBays.forEach(repairBay -> {
-            if (busyRepairBays.contains(repairBay.getId())) {
-                repairBays.remove(repairBay);
+        for(CarRepairBay repairBay: repairBays){
+            if (!busyRepairBays.contains(repairBay.getId())) {
+                bays.add(repairBay);
             }
-        });
-        return repairBays;
+        }
+        return bays;
     }
 
     public CarRepairBay createCarRepairBay(){

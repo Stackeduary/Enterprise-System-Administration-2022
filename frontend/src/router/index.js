@@ -7,6 +7,10 @@ import Car from "@/views/Car";
 import CarOwners from "@/views/CarOwners";
 import CarOwner from "@/views/CarOwner";
 import CarDetails from "@/views/CarDetails";
+import RepairBays from "@/views/RepairBays";
+import CarRepair from "@/views/CarRepair";
+import CarRepairDetails from "@/views/CarRepairDetails";
+import CarRepairFinish from "@/views/CarRepairFinish";
 
 const isAuthenticated = () => {
   return sessionStorage.getItem("Token") !== null;
@@ -52,6 +56,26 @@ const routes = [
     path: "/car/:id",
     name: "CarDetails",
     component: CarDetails,
+  },
+  {
+    path: "/repairbays",
+    name: "RepairBays",
+    component: RepairBays,
+  },
+  {
+    path: "/carrepair/:id",
+    name: "CarRepair",
+    component: CarRepair,
+  },
+  {
+    path: "/carrepair/view",
+    name: "CarRepairDetails",
+    component: CarRepairDetails,
+  },
+  {
+    path: "/carrepair/details/:id",
+    name: "CarRepairFinish",
+    component: CarRepairFinish,
   },
 ];
 
