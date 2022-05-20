@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.adilsdeals.car_repair_bay.dto.CarRepairBayDto;
 
 @RestController
 @RequestMapping("/repair-bay")
@@ -20,9 +19,9 @@ public class CarRepairBayController {
         return carRepairBayService.getCarRepairBays();
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createCarRepairBay(@RequestBody CarRepairBayDto carRepairBay){
-        return new ResponseEntity(carRepairBayService.createCarRepairBay(carRepairBay), HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<?> createCarRepairBay(){
+        return new ResponseEntity(carRepairBayService.createCarRepairBay(), HttpStatus.CREATED);
     }
 
     @GetMapping(value ="/{id}")

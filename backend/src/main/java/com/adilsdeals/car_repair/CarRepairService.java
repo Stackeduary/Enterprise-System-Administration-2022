@@ -53,7 +53,9 @@ public class CarRepairService {
         carRepair.setStatus(newCarRepair.getStatus());
         carRepair.setRepairTime(newCarRepair.getRepairTime());
         if(newCarRepair.getCarRepairBayId() != null) {
-            carRepair.setCarRepairBay(carRepairBayRepository.findById(newCarRepair.getCarRepairBayId()).orElseThrow());
+            if(!carRepairRepository.existsByCarRepairBay_Id(newCarRepair.getCarRepairBayId())) {
+                carRepair.setCarRepairBay(carRepairBayRepository.findById(newCarRepair.getCarRepairBayId()).orElseThrow());
+            }
         } else if (newCarRepair.getCarRepairBayId() == -1) {
             carRepair.setCarRepairBay(null);
         }
