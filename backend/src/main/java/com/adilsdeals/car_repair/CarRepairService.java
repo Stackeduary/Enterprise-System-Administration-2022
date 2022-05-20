@@ -74,7 +74,8 @@ public class CarRepairService {
         carRepair.setCarRepairBay(null);
         carRepair.setRepairTime(duration);
         carRepair.setStatus("finished");
-        carService.setAvailable(carRepair.getCar().getId(), true);
+        Car car = carRepair.getCar();
+        carService.setAvailable(carRepository.findByCar_Id(car.getId()).orElseThrow().getId(), true);
         return carRepairRepository.save(carRepair);
     }
 }
