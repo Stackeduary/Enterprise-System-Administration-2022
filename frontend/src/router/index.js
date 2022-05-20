@@ -2,8 +2,11 @@ import { createWebHistory, createRouter } from "vue-router";
 import Mainpage from "../views/Mainpage.vue";
 import EmployeeCreate from "../views/EmployeeCreate.vue";
 import EmployeeLogin from "../views/EmployeeLogin.vue";
+import CarCreate from "@/components/CarCreate";
+import Car from "@/views/Car";
 import CarOwners from "@/views/CarOwners";
 import CarOwner from "@/views/CarOwner";
+import CarDetails from "@/views/CarDetails";
 
 const isAuthenticated = () => {
   return sessionStorage.getItem("Token") !== null;
@@ -34,6 +37,21 @@ const routes = [
     path: "/carowner/:id?",
     name: "CarOwner",
     component: CarOwner,
+  },
+  {
+    path: "/car/manage",
+    name: "Car",
+    component: Car,
+  },
+  {
+    path: "/car/create",
+    name: "CarCreate",
+    component: CarCreate,
+  },
+  {
+    path: "/car/:id",
+    name: "CarDetails",
+    component: CarDetails,
   },
 ];
 
