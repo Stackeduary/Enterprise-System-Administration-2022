@@ -35,7 +35,7 @@ export default {
     getCarList() {
       this.cars = [];
       axios
-        .get(api.ENDPOINTS.car.list, {
+        .get(api.ENDPOINTS.car.listAvailable, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
           },

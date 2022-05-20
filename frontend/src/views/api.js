@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   employeeLogin: BASE_URL + "/login",
   car: {
     list: BASE_URL + "/car",
+    listAvailable: BASE_URL + "/car/available",
     create: BASE_URL + "/car/create",
     update: (id) => BASE_URL + "/car/" + id,
     delete: (id) => BASE_URL + "/car/" + id,

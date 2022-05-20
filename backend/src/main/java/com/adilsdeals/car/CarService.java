@@ -44,8 +44,18 @@ public class CarService {
         return carEntryRepository.findAll();
     }
 
+    public List<CarEntry> getAllAvailableCars(){
+        return carEntryRepository.findAllByAvailable(true);
+    }
+
     public CarEntry getCar(int carId) {
         return carEntryRepository.findById(carId).orElseThrow();
+    }
+
+    public void setAvailable(int carId, boolean available) {
+        CarEntry carEntry = carEntryRepository.findById(carId).orElseThrow();
+        carEntry.setAvailable(available);
+        carEntryRepository.save(carEntry);
     }
 
     public CarEntry updateCar(int carId, CarDto carDto) {
