@@ -3,6 +3,7 @@ package com.adilsdeals.car_rent;
 import com.adilsdeals.car.Car;
 import com.adilsdeals.models.Duration;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,4 +30,7 @@ public class CarRent {
     @JoinColumn(name = "car_id")
     @ManyToOne()
     private Car car;
+
+    @Column(name = "renter")
+    private String renter;
 }

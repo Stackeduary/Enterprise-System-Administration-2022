@@ -3,6 +3,7 @@ package com.adilsdeals.car_repair;
 import java.util.*;
 
 import com.adilsdeals.car.Car;
+import com.adilsdeals.car.CarEntryRepository;
 import com.adilsdeals.car.CarRepository;
 import com.adilsdeals.car_repair.dto.CarRepairDto;
 import com.adilsdeals.car_repair_bay.CarRepairBayRepository;
@@ -19,7 +20,7 @@ public class CarRepairService {
 
     private final CarRepairRepository carRepairRepository;
     private final CarRepairBayRepository carRepairBayRepository;
-    private final CarRepository carRepository;
+    private final CarEntryRepository carRepository;
     private final ObjectMapper objectMapper;
 
     public List<CarRepair> getCarRepairHistory(){
@@ -28,7 +29,7 @@ public class CarRepairService {
 
     public CarRepair createCarRepair(CarRepairDto carRepairDto){
         CarRepair carRepair = new CarRepair();
-        Car car = carRepository.findById(carRepairDto.getCarId()).orElseThrow();
+        Car car = carRepository.findById(carRepairDto.getCarId()).orElseThrow().getCar();
         if(!carRepairRepository.existsByCarRepairBay_Id(carRepairDto.getCarRepairBayId())){
             carRepair.setCarRepairBay(carRepairBayRepository.findById(carRepairDto.getCarRepairBayId()).orElseThrow());
         }else{

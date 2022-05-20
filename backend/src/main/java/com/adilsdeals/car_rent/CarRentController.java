@@ -15,19 +15,24 @@ public class CarRentController {
 
     private final CarRentService carRentService;
 
-    @GetMapping()
+    @GetMapping
     public List<CarRent> getCarRentHistory(){
         return carRentService.getCarRentHistory();
     }
 
-    @PostMapping(value ="/create")
+    @PostMapping
     public ResponseEntity<?> createCarRent(@RequestBody CarRentDto carRent){
         return new ResponseEntity(carRentService.createCarRent(carRent), HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/finish/{id}")
+    public ResponseEntity<?> finishCarRent(@PathVariable Integer id){
+        return new ResponseEntity(carRentService.finishCarRent(id), HttpStatus.OK);
+    }
+
     @GetMapping(value ="/{id}")
-    public void getCarRent(@PathVariable Integer id){
-        carRentService.getCarRent(id);
+    public CarRent getCarRent(@PathVariable Integer id){
+        return carRentService.getCarRent(id);
     }
 
     @DeleteMapping(value = "/{id}")

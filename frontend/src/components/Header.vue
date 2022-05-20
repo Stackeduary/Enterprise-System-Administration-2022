@@ -14,8 +14,9 @@
         <router-link to="/repairbays" class="secondary">Repair</router-link>
       </li>
 
-      <li><a href="#" class="secondary">Rent</a></li>
-      <li><a href="#" class="secondary">Data</a></li>
+      <li>
+        <router-link to="/car/rents" class="secondary">Rent</router-link>
+      </li>
 
       <li>
         <button @click="logout" id="logout" v-if="isAuthenticated()">
