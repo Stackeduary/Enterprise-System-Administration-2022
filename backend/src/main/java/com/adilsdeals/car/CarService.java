@@ -15,7 +15,6 @@ public class CarService {
     private final CarRepository carRepository;
     private final CarOwnerRepository carOwnerRepository;
     private final CarEntryRepository carEntryRepository;
-    private final ModelMapper modelMapper;
 
     public CarEntry createCar(CarDto carDto) {
         Car car = Car.builder()
@@ -37,6 +36,7 @@ public class CarService {
     }
 
     public void deleteCar(int carId) {
+        carRepository.delete(carEntryRepository.findById(carId).orElseThrow().getCar());
         carEntryRepository.deleteById(carId);
     }
 

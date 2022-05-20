@@ -17,7 +17,12 @@ export const ENDPOINTS = {
     get: (id) => BASE_URL + "/cars/repair/" + id,
     update: (id) => BASE_URL + "/cars/repair/finish/" + id,
   },
+  carRent: {
+    get: (id) => BASE_URL + "/cars/rent/" + id,
+    update: (id) => BASE_URL + "/cars/rent/finish/" + id,
+  },
   carOwners: BASE_URL + "/car-owner",
   carOwner: BASE_URL + "/car-owner/",
   carOwnerCreate: BASE_URL + "/car-owner/create",
+  rent: BASE_URL + "/cars/rent",
 };

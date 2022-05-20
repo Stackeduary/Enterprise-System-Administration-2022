@@ -1,16 +1,14 @@
 <template>
   <main>
     <form class="container">
-      <label for="car">
+      <label for="carId">
         Car
-        <input
-          v-model="CarRepair.carId"
-          type="number"
-          id="carId"
-          name="carId"
-          placeholder="Car"
-          required
-        />
+        <select v-model="CarRepair.carId" id="carId" name="carId" required>
+          <option disabled value="">Select a car</option>
+          <option v-for="car in cars" :value="car.id" :key="car.id">
+            {{ car.name }}
+          </option>
+        </select>
       </label>
       <label for="repairbay">
         Repair bay
@@ -33,11 +31,12 @@
 <script>
 import * as api from "./api";
 import axios from "axios";
-//import router from "@/router";
+import router from "@/router";
 export default {
   name: "CarRepair",
   data() {
     return {
+      cars: [],
       CarRepair: {
         carId: "",
         carRepairBayId: parseInt(this.$route.params.id),
@@ -45,6 +44,26 @@ export default {
     };
   },
   methods: {
+    getCarList() {
+      this.cars = [];
+      axios
+        .get(api.ENDPOINTS.car.list, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+          },
+        })
+        .then((response) => {
+          response.data.forEach((entry) => {
+            this.cars.push({
+              id: entry.id,
+              name: entry.car.licensePlateNumber,
+            });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     createCarRepair(e) {
       e.preventDefault();
       const data = {
@@ -60,13 +79,16 @@ export default {
         .then((response) => {
           console.log(response);
           this.$swal("Yay!", "Car repair submitted!", "success");
-          //router.replace({ path: "/car/manage" });
+          router.replace({ path: "/car/manage" });
         })
         .catch((error) => {
           console.log(error);
           this.$swal("Oops", "Something went wrong", "error");
         });
     },
+  },
+  async beforeMount() {
+    await this.getCarList();
   },
 };
 </script>

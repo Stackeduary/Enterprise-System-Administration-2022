@@ -8,4 +8,5 @@ public class CarRentDto {
     private Integer id;
     private Duration rentTime;
     private int car;
+    private String renter;
 }

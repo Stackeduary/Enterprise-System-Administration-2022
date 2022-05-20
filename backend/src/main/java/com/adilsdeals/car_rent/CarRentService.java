@@ -2,8 +2,9 @@ package com.adilsdeals.car_rent;
 
 import java.util.*;
 
+import com.adilsdeals.car.CarEntryRepository;
 import com.adilsdeals.car_rent.dto.CarRentDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.adilsdeals.models.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +13,30 @@ import org.springframework.stereotype.Service;
 public class CarRentService {
 
     private final CarRentRepository carRentRepository;
-    private final ObjectMapper objectMapper;
+    private final CarEntryRepository carRepository;
 
     public List<CarRent> getCarRentHistory(){
         return carRentRepository.findAll();
     }
 
     public CarRent createCarRent(CarRentDto carRent){
-        return carRentRepository.save(objectMapper.convertValue(carRent, CarRent.class));
+        CarRent rent = new CarRent();
+        rent.setRenter(carRent.getRenter());
+        rent.setCar(carRepository.findById(carRent.getCar()).orElseThrow().getCar());
+        rent.setRentTime(new Duration(new Date(), null));
+
+        return carRentRepository.save(rent);
+    }
+    public CarRent finishCarRent(Integer id) {
+        CarRent rent = carRentRepository.getById(id);
+        Duration duration = rent.getRentTime();
+        duration.setFinishTime(new Date());
+        rent.setRentTime(duration);
+        return carRentRepository.save(rent);
     }
 
     public CarRent getCarRent(Integer id) {
-        return carRentRepository.getById(id);
+        return carRentRepository.findById(id).orElseThrow();
     }
 
     public void deleteCarRent(Integer id) {
