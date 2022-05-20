@@ -2,9 +2,7 @@ package com.adilsdeals.car_repair;
 
 import java.util.*;
 
-import com.adilsdeals.car.Car;
-import com.adilsdeals.car.CarEntryRepository;
-import com.adilsdeals.car.CarRepository;
+import com.adilsdeals.car.*;
 import com.adilsdeals.car_repair.dto.CarRepairDto;
 import com.adilsdeals.car_repair_bay.CarRepairBayRepository;
 import com.adilsdeals.models.Duration;
@@ -21,6 +19,7 @@ public class CarRepairService {
     private final CarRepairRepository carRepairRepository;
     private final CarRepairBayRepository carRepairBayRepository;
     private final CarEntryRepository carRepository;
+    private final CarService carService;
     private final ObjectMapper objectMapper;
 
     public List<CarRepair> getCarRepairHistory(){
@@ -29,15 +28,19 @@ public class CarRepairService {
 
     public CarRepair createCarRepair(CarRepairDto carRepairDto){
         CarRepair carRepair = new CarRepair();
-        Car car = carRepository.findById(carRepairDto.getCarId()).orElseThrow().getCar();
+        CarEntry car = carRepository.findById(carRepairDto.getCarId()).orElseThrow();
+        if(!car.getAvailable()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is not available");
+        }
         if(!carRepairRepository.existsByCarRepairBay_Id(carRepairDto.getCarRepairBayId())){
             carRepair.setCarRepairBay(carRepairBayRepository.findById(carRepairDto.getCarRepairBayId()).orElseThrow());
         }else{
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Car repair bay is not empty");
         }
+        carService.setAvailable(car.getId(), false);
         carRepair.setRepairTime(new Duration(new Date(), null));
         carRepair.setStatus("ongoing");
-        carRepair.setCar(car);
+        carRepair.setCar(car.getCar());
 
         return carRepairRepository.save(objectMapper.convertValue(carRepair, CarRepair.class));
     }
@@ -71,6 +74,7 @@ public class CarRepairService {
         carRepair.setCarRepairBay(null);
         carRepair.setRepairTime(duration);
         carRepair.setStatus("finished");
+        carService.setAvailable(carRepair.getCar().getId(), true);
         return carRepairRepository.save(carRepair);
     }
 }

@@ -41,6 +41,15 @@ public class CarController {
         }
     }
 
+    @GetMapping("/available")
+    public ResponseEntity<?> getAllAvailableCars() {
+        try {
+            return new ResponseEntity<>(carService.getAllAvailableCars(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PutMapping("/{carId}")
     public ResponseEntity<?> update(@PathVariable("carId") int carId, @RequestBody CarDto car) {
         try {

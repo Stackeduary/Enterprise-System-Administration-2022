@@ -2,11 +2,15 @@ package com.adilsdeals.car_rent;
 
 import java.util.*;
 
+import com.adilsdeals.car.CarEntry;
 import com.adilsdeals.car.CarEntryRepository;
+import com.adilsdeals.car.CarService;
 import com.adilsdeals.car_rent.dto.CarRentDto;
 import com.adilsdeals.models.Duration;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +18,7 @@ public class CarRentService {
 
     private final CarRentRepository carRentRepository;
     private final CarEntryRepository carRepository;
+    private final CarService carService;
 
     public List<CarRent> getCarRentHistory(){
         return carRentRepository.findAll();
@@ -22,7 +27,12 @@ public class CarRentService {
     public CarRent createCarRent(CarRentDto carRent){
         CarRent rent = new CarRent();
         rent.setRenter(carRent.getRenter());
-        rent.setCar(carRepository.findById(carRent.getCar()).orElseThrow().getCar());
+        CarEntry entry = carRepository.findById(carRent.getCar()).orElseThrow();
+        if(!entry.getAvailable()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is not available");
+        }
+        carService.setAvailable(entry.getId(), false);
+        rent.setCar(entry.getCar());
         rent.setRentTime(new Duration(new Date(), null));
 
         return carRentRepository.save(rent);
@@ -32,6 +42,7 @@ public class CarRentService {
         Duration duration = rent.getRentTime();
         duration.setFinishTime(new Date());
         rent.setRentTime(duration);
+        carService.setAvailable(rent.getCar().getId(), true);
         return carRentRepository.save(rent);
     }
 
