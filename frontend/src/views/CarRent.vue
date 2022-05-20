@@ -68,7 +68,7 @@ export default {
           }
         )
         .then(() => {
-          this.$router.push("/rents");
+          this.$router.push("/car/rents");
         })
         .catch((error) => {
           console.log(error);
