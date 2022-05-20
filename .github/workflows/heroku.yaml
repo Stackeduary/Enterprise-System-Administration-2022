@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "report/**"
+      - ".env.example"
+      - ".gitignore"
+      - "README.md"
+      - "docker-compose.local.yml"
 
 jobs:
   heroku:
@@ -15,10 +21,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Deploy to Heroku
+    - name: Deploy backend to Heroku
       env:
         HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
-        git push heroku HEAD:master -f
+        git remote add heroku-backend https://heroku:$HEROKU_API_TOKEN@git.heroku.com/adilsdealsapi.git
+        git subtree push --prefix backend heroku-backend main
+
+    - name: Deploy frontend to Heroku
+      env:
+        HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+      run: |
+        git remote add heroku-frontend https://heroku:$HEROKU_API_TOKEN@git.heroku.com/adilsdeals.git
+        git subtree push --prefix frontend heroku-frontend main

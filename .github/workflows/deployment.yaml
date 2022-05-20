@@ -5,9 +5,16 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "report/**"
+      - ".env.example"
+      - ".gitignore"
+      - "README.md"
+      - "docker-compose.local.yml"
 
 env:
-  IMAGE: ghcr.io/stackeduary/adilsdeals-api
+  BACKEND_IMAGE: ghcr.io/stackeduary/adilsdeals-api
+  FRONTEND_IMAGE: ghcr.io/stackeduary/adilsdeals-frontend
   HOST: 52.214.106.12
   USERNAME: ec2-user
 
@@ -29,10 +36,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push backend Docker image
         uses: docker/build-push-action@v2
         with:
-          tags: ${{ env.IMAGE }}:latest
+          context: backend
+          tags: ${{ env.BACKEND_IMAGE }}:latest
+          push: true
+
+      - name: Build and push frontend Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend
+          tags: ${{ env.FRONTEND_IMAGE }}:latest
           push: true
 
       - name: Update docker-compose

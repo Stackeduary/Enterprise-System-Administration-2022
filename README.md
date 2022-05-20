@@ -6,6 +6,7 @@
  - `SPRING_DATASOURCE_USER=postgres`
  - `SPRING_DATASOURCE_PASS=postgres`
  - `SECURITY_SECRET_KEY=adilsdeals`
+ - `PORT=8031`
 
 ## Run locally
 
@@ -17,16 +18,18 @@ docker-compose -f docker-compose.local.yml up
 
 # Checkpoint 1 Report
 
-#### Team L
+### Team L
 
-##### Bill Sendewicz
-##### Mir Jalal Hashimli
-##### Adil Shirinov
-##### Volodymyr Chernetskyi
+#### Bill Sendewicz
+#### Mir Jalal Hashimli
+#### Adil Shirinov
+#### Volodymyr Chernetskyi
 
-GitHub repo: https://github.com/Stackeduary/Enterprise-System-Integration-2022
+GitHub repo: [Stackeduary/Enterprise-System-Integration-2022](https://github.com/Stackeduary/Enterprise-System-Integration-2022)
 
-Deployed app: https://api.chernetskyi.com
+Deployed app:
+ - [https://adilsdeals.chernetskyi.com](https://adilsdeals.chernetskyi.com) on AWS
+ - [https://adilsdeals.herokuapp.com/](https://adilsdeals.herokuapp.com/) and [https://adilsdealsapi.herokuapp.com/](https://adilsdealsapi.herokuapp.com/) on Heroku
 
 <br>
 
@@ -100,7 +103,7 @@ classDiagram
 
 ## REST API
 
-URI | HTTP Verb | Description
+URI | HTTP Method | Description
 ---|---|---
  /car/create | POST | add a car
  /car/{carId} | GET | view a car with a specified ID
