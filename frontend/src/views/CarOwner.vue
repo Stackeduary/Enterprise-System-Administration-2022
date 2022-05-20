@@ -89,13 +89,13 @@ export default {
         telephoneNumber: this.CarOwner.telephoneNumber,
         email: this.CarOwner.email,
       };
-      (this.id == null || this.id == ""
-        ? axios.post(api.ENDPOINTS.carOwner + this.id, data, {
+      (this.id == null || this.id === ""
+        ? axios.post(api.ENDPOINTS.carOwner, data, {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
             },
           })
-        : axios.put(api.ENDPOINTS.carOwner, data, {
+        : axios.put(api.ENDPOINTS.carOwner + this.id, data, {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
             },
