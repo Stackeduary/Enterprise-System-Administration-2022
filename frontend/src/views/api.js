@@ -8,6 +8,9 @@ export const ENDPOINTS = {
     update: (id) => BASE_URL + "/car/" + id,
     delete: (id) => BASE_URL + "/car/" + id,
   },
+  bay: {
+    list: BASE_URL + "",
+  },
   carOwners: BASE_URL + "/car-owner",
   carOwner: BASE_URL + "/car-owner/",
   carOwnerCreate: BASE_URL + "/car-owner/create",
