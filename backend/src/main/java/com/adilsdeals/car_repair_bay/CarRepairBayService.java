@@ -2,6 +2,7 @@ package com.adilsdeals.car_repair_bay;
 
 import java.util.*;
 
+import com.adilsdeals.car_repair.CarRepairRepository;
 import com.adilsdeals.car_repair_bay.dto.CarRepairBayDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,18 +13,30 @@ import org.springframework.stereotype.Service;
 public class CarRepairBayService {
 
     private final CarRepairBayRepository carRepairBayRepository;
-    private final ObjectMapper objectMapper;
+    private final CarRepairRepository carRepairRepository;
 
     public List<CarRepairBay> getCarRepairBays(){
-        return carRepairBayRepository.findAll();
+        List<CarRepairBay> repairBays = carRepairBayRepository.findAll();
+        List<CarRepairBay> bays = new ArrayList<>();
+        List<Integer> busyRepairBays = carRepairRepository.findDistinctCarRepairBays();
+        for(CarRepairBay repairBay: repairBays){
+            if (!busyRepairBays.contains(repairBay.getId())) {
+                bays.add(repairBay);
+            }
+        }
+        return bays;
     }
 
-    public CarRepairBay createCarRepairBay(CarRepairBayDto carRepairBay){
-        return carRepairBayRepository.save(objectMapper.convertValue(carRepairBay, CarRepairBay.class));
+    public CarRepairBay createCarRepairBay(){
+        return carRepairBayRepository.save(new CarRepairBay());
     }
 
-    public CarRepairBay getCarRepairBay(Integer id) {
-        return carRepairBayRepository.getById(id);
+    public CarRepairBayDto getCarRepairBay(Integer id) {
+        CarRepairBay repairBay = carRepairBayRepository.getById(id);
+        if (carRepairRepository.existsByCarRepairBay_Id(id)) {
+            return new CarRepairBayDto(repairBay.getId(), false);
+        }
+        return new CarRepairBayDto(repairBay.getId(), true);
     }
 
     public void deleteCarRepairBay(Integer id) {

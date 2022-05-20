@@ -26,8 +26,13 @@ public class CarRepairController {
     }
 
     @GetMapping(value ="/{id}")
-    public void getCarRepair(@PathVariable Integer id){
-        carRepairService.getCarRepair(id);
+    public CarRepair getCarRepair(@PathVariable Integer id){
+        return carRepairService.getCarRepair(id);
+    }
+
+    @PostMapping(value = "/finish/{id}")
+    public CarRepair finishRepair(@PathVariable Integer id){
+        return carRepairService.finishRepair(id);
     }
 
     @DeleteMapping(value = "/{id}")

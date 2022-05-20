@@ -7,9 +7,16 @@
       <li>
         <router-link to="/" class="secondary">Home</router-link>
       </li>
-      <li><a href="#" class="secondary">Repair</a></li>
+      <li>
+        <router-link to="/car/manage" class="secondary">Cars</router-link>
+      </li>
+      <li>
+        <router-link to="/repairbays" class="secondary">Repair</router-link>
+      </li>
+
       <li><a href="#" class="secondary">Rent</a></li>
       <li><a href="#" class="secondary">Data</a></li>
+
       <li>
         <button @click="logout" id="logout" v-if="isAuthenticated()">
           Logout
