@@ -10,6 +10,11 @@ export default {
   components: {
     "my-header": Header,
   },
+  created() {
+    if (sessionStorage.getItem("Token") !== null) {
+      this.$store.commit("stateLogin");
+    }
+  },
 };
 </script>
 
