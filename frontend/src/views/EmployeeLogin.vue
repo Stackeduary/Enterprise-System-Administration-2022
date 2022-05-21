@@ -54,7 +54,8 @@ export default {
         .post(api.ENDPOINTS.employeeLogin, data)
         .then((response) => {
           sessionStorage.setItem("Token", response.headers["authorization"]);
-          this.$router.resolve("/");
+          this.$store.commit("stateLogin");
+          this.$router.replace("/");
         })
         .catch((error) => {
           console.log(error);

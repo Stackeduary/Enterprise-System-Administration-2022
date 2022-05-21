@@ -54,8 +54,10 @@ export default {
               carRepair.car = `${entry.car.make} (${entry.car.licensePlateNumber})`;
               if (entry.carRepairBay) {
                 carRepair.car_repair_bay_id = `Bay #${entry.carRepairBay.id}`;
-                this.carRepairs.push(carRepair);
+              } else {
+                carRepair.car_repair_bay_id = "-";
               }
+              this.carRepairs.push(carRepair);
             });
           }
         })

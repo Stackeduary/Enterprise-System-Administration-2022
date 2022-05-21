@@ -2,6 +2,7 @@ package com.adilsdeals.car_rent;
 
 import java.util.*;
 
+import com.adilsdeals.car.Car;
 import com.adilsdeals.car.CarEntry;
 import com.adilsdeals.car.CarEntryRepository;
 import com.adilsdeals.car.CarService;
@@ -42,7 +43,8 @@ public class CarRentService {
         Duration duration = rent.getRentTime();
         duration.setFinishTime(new Date());
         rent.setRentTime(duration);
-        carService.setAvailable(rent.getCar().getId(), true);
+        Car car = rent.getCar();
+        carService.setAvailable(carRepository.findByCar_Id(car.getId()).orElseThrow().getId(), true);
         return carRentRepository.save(rent);
     }
 
