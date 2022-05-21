@@ -19,9 +19,7 @@
       </li>
 
       <li>
-        <button @click="logout" id="logout" v-if="isAuthenticated()">
-          Logout
-        </button>
+        <button @click="logout" id="logout" v-if="isAuth">Logout</button>
         <router-link to="/login" role="button" id="login" v-else
           >Login</router-link
         >
@@ -34,12 +32,15 @@
 <script>
 export default {
   methods: {
-    isAuthenticated() {
-      return sessionStorage.getItem("Token") !== null;
-    },
     logout() {
       sessionStorage.removeItem("Token");
-      this.$forceUpdate();
+      this.$store.commit("stateLogout");
+      this.$router.replace("/login");
+    },
+  },
+  computed: {
+    isAuth() {
+      return this.$store.state.isAuth;
     },
   },
 };
