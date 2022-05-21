@@ -67,16 +67,14 @@
           required
         />
       </label>
-      <label for="carOwner">
+      <label for="Car.carOwner">
         Owner
-        <input
-          v-model="Car.carOwner"
-          type="number"
-          id="owner"
-          name="owner"
-          placeholder="Owner"
-          required
-        />
+        <select v-model="Car.carOwner" id="owner" name="owner" required>
+          <option disabled value="">Select an owner</option>
+          <option v-for="owner in owners" :value="owner.id" :key="owner.id">
+            {{ owner.name }}
+          </option>
+        </select>
       </label>
       <label for="latitude">
         Latitude
@@ -125,6 +123,7 @@ export default {
   name: "CarCreate",
   data() {
     return {
+      owners: [],
       Car: {
         licensePlateNumber: "",
         make: "",
@@ -140,6 +139,26 @@ export default {
     };
   },
   methods: {
+    fetchOwners() {
+      this.owners = [];
+      axios
+        .get(api.ENDPOINTS.carOwners, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+          },
+        })
+        .then((response) => {
+          response.data.forEach((entry) => {
+            this.owners.push({
+              id: entry.id,
+              name: entry.name,
+            });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     createOrUpdateCar(e) {
       e.preventDefault();
       const data = {
@@ -196,8 +215,9 @@ export default {
   params: {
     id: null,
   },
-  beforeMount() {
+  async beforeMount() {
     this.id = this.$route.params.id;
+    await this.fetchOwners();
     if (this.id != null && this.id !== "") {
       axios
         .get(api.ENDPOINTS.car.update(this.id), {
