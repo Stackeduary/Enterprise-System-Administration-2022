@@ -11,6 +11,9 @@
         <router-link to="/car/manage" class="secondary">Cars</router-link>
       </li>
       <li>
+        <router-link to="/carowners" class="secondary">Car Owners</router-link>
+      </li>
+      <li>
         <router-link to="/repairbays" class="secondary">Repair</router-link>
       </li>
 
